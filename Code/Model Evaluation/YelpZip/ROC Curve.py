@@ -10,7 +10,7 @@ import math
 import warnings
 
 warnings.filterwarnings("ignore")
-Print("Please wait, Plotting ...")
+print("Please wait, Plotting ...")
 
 cls = ['SVM','LR','MLP']
 # Reading model objects as returned by model training phase ...............
@@ -104,9 +104,9 @@ tpr_prod_t = []
 for k in range(0, len(cls)):
 	models_prod_b = []
 	models_prod_t = []
-	for u in range(0,8):
+	for u in range(0,2):
 		models_prod_b.append(pickle.load(open('Data\\Results\\YelpZip\\Product Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))	# Change the path according to the file location
-	for u in range(0,8):
+	for u in range(0,2):
 		models_prod_t.append(pickle.load(open('Data\\Results\\YelpZip\\Product Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
 
 	ROC_B = []

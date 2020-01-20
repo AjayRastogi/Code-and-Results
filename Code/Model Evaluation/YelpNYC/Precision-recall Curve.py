@@ -104,9 +104,9 @@ recall_prod_t = []
 for k in range(0, len(cls)):
 	models_prod_b = []
 	models_prod_t = []
-	for u in range(0,7):
+	for u in range(0,5):
 		models_prod_b.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
-	for u in range(0,7):
+	for u in range(0,5):
 		models_prod_t.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 	
 	AP_B = []

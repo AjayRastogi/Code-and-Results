@@ -16,11 +16,11 @@ for k in range(0,len(cls)):
 	models_h = []
 
 	for u in range(0,9):
-			models_b.append(pickle.load(open('Data\\Results\\YelpZip\\Reviewer Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
+			models_b.append(pickle.load(open('Data\\Results\\YelpNYC\\Reviewer Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
 	for u in range(0,9):
-			models_t.append(pickle.load(open('Data\\Results\\YelpZip\\Reviewer Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
+			models_t.append(pickle.load(open('Data\\Results\\YelpNYC\\Reviewer Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 	for u in range(0,9):
-			models_h.append(pickle.load(open('Data\\Results\\YelpZip\\Reviewer Hybrid\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
+			models_h.append(pickle.load(open('Data\\Results\\YelpNYC\\Reviewer Hybrid\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 	ap=[]
 	f1=[]
 	roc=[]
@@ -73,11 +73,11 @@ for k in range(0,len(cls)):
 	models_h = []
 
 	for u in range(0,13):
-			models_b.append(pickle.load(open('Data\\Results\\YelpZip\\Review Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
+			models_b.append(pickle.load(open('Data\\Results\\YelpNYC\\Review Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
 	for u in range(0,13):
-			models_t.append(pickle.load(open('Data\\Results\\YelpZip\\Review Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
+			models_t.append(pickle.load(open('Data\\Results\\YelpNYC\\Review Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 	for u in range(0,13):
-			models_h.append(pickle.load(open('Data\\Results\\YelpZip\\Review Hybrid\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
+			models_h.append(pickle.load(open('Data\\Results\\YelpNYC\\Review Hybrid\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 	ap=[]
 	f1=[]
 	roc=[]
@@ -129,12 +129,12 @@ for k in range(0,len(cls)):
 	models_t = []
 	models_h = []
 
-	for u in range(0,7):
-			models_b.append(pickle.load(open('Data\\Results\\YelpZip\\Product Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
-	for u in range(0,7):
-			models_t.append(pickle.load(open('Data\\Results\\YelpZip\\Product Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
-	for u in range(0,7):
-			models_h.append(pickle.load(open('Data\\Results\\YelpZip\\Product Hybrid\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
+	for u in range(0,5):
+			models_b.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Behavioral\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
+	for u in range(0,5):
+			models_t.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Textual\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
+	for u in range(0,5):
+			models_h.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Hybrid\\'+str(cls[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 	ap=[]
 	f1=[]
 	roc=[]

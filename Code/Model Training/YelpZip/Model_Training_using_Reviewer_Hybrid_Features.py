@@ -15,6 +15,7 @@ from sklearn.metrics import make_scorer
 from sklearn.metrics import average_precision_score,precision_recall_curve
 from sklearn.model_selection import cross_val_score,cross_validate
 import openpyxl
+import math
 
 def score_auc(X, y):
 	fpr, tpr, threshold = roc_curve(X, y) 
@@ -61,15 +62,15 @@ if __name__ == "__main__":
 	classifier3 = MLPClassifier()							# MLP Classification
 	M = [classifier1, classifier2, classifier3]
 	cls = ["SVM", "LR", "MLP"]		
-	X  = pd.read_excel('Data\\YelpZip\\Resulting Features\\Reviewer_Centric_Behavioral_Features.xlsx', sheetname=0)			# Change the path according to the file location
+	X  = pd.read_excel('C:\\Users\\Ajay Rastogi\\Desktop\\Extended Version (Journal)\\PeerJ\\PeerJ-Paper\\Data\\YelpZip\\Resulting Features\\Reviewer_Centric_Behavioral_Features.xlsx', sheetname=0)			# Change the path according to the file location
 	X['MNR(u)'] =(X['MNR(u)']-X['MNR(u)'].min())/(X['MNR(u)'].max()-X['MNR(u)'].min())										# Min-max normalization on MNR
-	X1 = pd.read_excel('Data\\YelpZip\\Resulting Features\\Reviewer_Centric_Textual_Features.xlsx', sheetname=0)			# Change the path according to the file location
+	X1 = pd.read_excel('C:\\Users\\Ajay Rastogi\\Desktop\\Extended Version (Journal)\\PeerJ\\PeerJ-Paper\\Data\\YelpZip\\Resulting Features\\Reviewer_Centric_Textual_Features.xlsx', sheetname=0)			# Change the path according to the file location
 	X1['ARL(u)'] =(X1['ARL(u)']-X1['ARL(u)'].min())/(X1['ARL(u)'].max()-X1['ARL(u)'].min())									# Min-max normalization on ARL
 	#print(X.head())
 	#print(X.shape)
 	#print(X1.head())
 	#print(X1.shape)
-	Y= pd.read_excel('Data\\YelpZip\\Labels_for_reviewers.xlsx', sheetname=0)			# Change the path according to the file location
+	Y= pd.read_excel('C:\\Users\\Ajay Rastogi\\Desktop\\Extended Version (Journal)\\PeerJ\\PeerJ-Paper\\Data\\YelpZip\\Labels_for_reviewers.xlsx', sheetname=0)			# Change the path according to the file location
 	Y = Y.iloc[:, 0:1]
 	Y.ix[(Y.Label == 1), 'Label'] = 0
 	Y.ix[(Y.Label == -1), 'Label'] = 1
@@ -88,12 +89,12 @@ if __name__ == "__main__":
 	for i in range(0, partitions):
 		X_bal_sets.append(pd.concat([X_new_spam,X_df[i]],axis=0))	# Merging partitions with spam-class to get balanced instance sets 
 	
-	#print("First partition Distribution : " , X_[0]['Label'].value_counts())
-	#print("Last partition Distribution : " , X_[partitions-1]['Label'].value_counts())
+	print("First partition Distribution : " , X_bal_sets[0]['Label'].value_counts())
+	print("Last partition Distribution : " , X_bal_sets[partitions-1]['Label'].value_counts())
 	# code end....................................................................
 
 
-	for i in range(0,3):
+	"""for i in range(0,3):
 		print("Model training on "+cls[i]+" classifier running...")
 		filename = 'Data\\Results\\YelpZip\\Reviewer Hybrid\\'+cls[i]+'\\FPR_TPR_Threshold_Reviewer_Hybrid.xlsx'		# File for Writing FPR and TPR values at different thresholds for ROC curve analysis
 		filename1 = 'Data\\Results\\YelpZip\\Reviewer Hybrid\\'+cls[i]+'\\Pre_Recall_Threshold_Reviewer_Hybrid.xlsx'	# File for Writing Precision and Recall values at different thresholds for Precision-recall curve analysis
@@ -113,4 +114,4 @@ if __name__ == "__main__":
 			filename2 = 'Data\\Results\\YelpZip\\Reviewer Hybrid\\'+cls[i]+'\\Model_'+str(k)+'.sav'				# Change the path according to the file location
 			pickle.dump(mm, open(filename2, 'wb'))
 			k = k+1
-
+"""

@@ -125,9 +125,9 @@ for k in range(0,len(MODELS)):
 	models = []
 	models1 = []
 
-	for u in range(0,7):
+	for u in range(0,5):
 		models.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Behavioral\\'+str(MODELS[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))		# Change the path according to the file location
-	for u in range(0,7):
+	for u in range(0,5):
 		models1.append(pickle.load(open('Data\\Results\\YelpNYC\\Product Textual\\'+str(MODELS[k])+'\\Model_'+str(u+1)+'.sav', 'rb')))			# Change the path according to the file location
 
 	# Average of results of five-folds across all the balanced instance sets ............

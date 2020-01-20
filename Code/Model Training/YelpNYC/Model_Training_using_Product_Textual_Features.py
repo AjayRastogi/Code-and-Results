@@ -15,9 +15,10 @@ from sklearn.metrics import make_scorer
 from sklearn.metrics import average_precision_score,precision_recall_curve
 from sklearn.model_selection import cross_val_score,cross_validate
 import openpyxl
+import math
 
 def score_auc(X, y):
-	fpr, tpr, threshold = roc_curve(X, y) 
+	fpr, tpr, threshold = roc_curve(X, y, drop_intermediate=False) 
 	roc = roc_auc_score(X, y)
 	wb = openpyxl.load_workbook(filename=filename)
 	ws1 = wb['Sheet1']
@@ -59,7 +60,7 @@ if __name__ == "__main__":
 	classifier1 = SVC(probability = True)					# SVM Classification
 	classifier2 = LogisticRegression()						# LR Classification
 	classifier3 = MLPClassifier()							# MLP Classification
-	M = [classifier1, classifier2, classifier3]
+	M = [classifier1,classifier2, classifier3]
 	cls = ["SVM", "LR", "MLP"]			
 	X = pd.read_excel('Data\\YelpNYC\\Resulting Features\\Product_Centric_Textual_Features.xlsx', sheetname=0)		# Change the path according to the file location
 	X['ARL(p)'] = (X['ARL(p)']-X['ARL(p)'].min())/(X['ARL(p)'].max()-X['ARL(p)'].min())								# Min-max normalization on ARL
@@ -77,15 +78,21 @@ if __name__ == "__main__":
 	X_new_spam = X_new.loc[X_new['Label'] == 1]				# Total spammers
 	X_new_notspam = X_new.loc[X_new['Label'] == 0]			# Total non-spammers
 	X_new_spam = X_new_spam.iloc[np.random.permutation(len(X_new_spam))]				# Shuffle spam
+	print(X_new_spam.shape)
 	X_new_notspam = X_new_notspam.iloc[np.random.permutation(len(X_new_notspam))]		# Shuffle not-spam
-	partitions = int(math.ceil(X_new_notspam.shape[0]/float(X_new_spam.shape[0])))
-	X_df = np.array_split(X_new_notspam, partitions)		# split majority class samples(not-spam class) into nearly equal size partitions 
+	print(X_new_notspam.shape)
+	partitions = int(round(X_new_spam.shape[0]/float(X_new_notspam.shape[0])))
+	print(partitions)
+	X_df = np.array_split(X_new_spam, partitions)		# split majority class samples(not-spam class) into nearly equal size partitions 
+	#print(X_df[0].shape)
+	#print(X_df[1].shape)
+	#print(X_df[2].shape)
 	X_bal_sets = []
 	for i in range(0, partitions):
-		X_bal_sets.append(pd.concat([X_new_spam,X_df[i]],axis=0))	# Merging partitions with spam-class to get balanced instance sets 
+		X_bal_sets.append(pd.concat([X_df[i],X_new_notspam],axis=0))	# Merging partitions with spam-class to get balanced instance sets 
 	
-	#print("First partition Distribution : " , X_bal_sets[0]['Label'].value_counts())
-	#print("Last partition Distribution : " , X_bal_sets[partitions-1]['Label'].value_counts())
+	print("First partition Distribution : " , X_bal_sets[0]['Label'].value_counts())
+	print("Last partition Distribution : " , X_bal_sets[partitions-1]['Label'].value_counts())
 	# Code end...................................................................
 
 	for i in range(0,3):

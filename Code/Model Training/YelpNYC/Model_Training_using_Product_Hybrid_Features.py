@@ -64,7 +64,7 @@ if __name__ == "__main__":
 	X  = pd.read_excel('Data\\YelpNYC\\Resulting Features\\Product_Centric_Behavioral_Features.xlsx', sheetname=0)		# Change the path according to the file location
 	X['MNR(p)'] =(X['MNR(p)']-X['MNR(p)'].min())/(X['MNR(p)'].max()-X['MNR(p)'].min())									# Min-max normalization on MNR
 	X1 = pd.read_excel('Data\\YelpNYC\\Resulting Features\\Product_Centric_Textual_Features.xlsx', sheetname=0)			# Change the path according to the file location
-	X['ARL(p)'] = (X['ARL(p)']-X['ARL(p)'].min())/(X['ARL(p)'].max()-X['ARL(p)'].min())									# Min-max normalization on ARL
+	X1['ARL(p)'] = (X1['ARL(p)']-X1['ARL(p)'].min())/(X1['ARL(p)'].max()-X1['ARL(p)'].min())									# Min-max normalization on ARL
 	#print(X.head())
 	#print(X.shape)
 	#print(X1.head())
@@ -81,15 +81,20 @@ if __name__ == "__main__":
 	X_new_spam = X_new.loc[X_new['Label'] == 1]				# Total spammers
 	X_new_notspam = X_new.loc[X_new['Label'] == 0]			# Total non-spammers
 	X_new_spam = X_new_spam.iloc[np.random.permutation(len(X_new_spam))]				# Shuffle spam
+	print(X_new_spam.shape)
 	X_new_notspam = X_new_notspam.iloc[np.random.permutation(len(X_new_notspam))]		# Shuffle not-spam
-	partitions = int(math.ceil(X_new_notspam.shape[0]/float(X_new_spam.shape[0])))
-	X_df = np.array_split(X_new_notspam, partitions)		# split majority class samples(not-spam class) into nearly equal size partitions 
+	print(X_new_notspam.shape)
+	partitions = int(round(X_new_spam.shape[0]/float(X_new_notspam.shape[0])))
+	print(partitions)
+	X_df = np.array_split(X_new_spam, partitions)		# split majority class samples(not-spam class) into nearly equal size partitions 
+	print(X_df[0].shape)
+	print(X_df[1].shape)
 	X_bal_sets = []
 	for i in range(0, partitions):
-		X_bal_sets.append(pd.concat([X_new_spam,X_df[i]],axis=0))	# Merging partitions with spam-class to get balanced instance sets 
+		X_bal_sets.append(pd.concat([X_df[i],X_new_notspam],axis=0))	# Merging partitions with spam-class to get balanced instance sets 
 	
-	#print("First partition Distribution : " , X_[0]['Label'].value_counts())
-	#print("Last partition Distribution : " , X_[partitions-1]['Label'].value_counts())
+	print("First partition Distribution : " , X_bal_sets[0]['Label'].value_counts())
+	print("Last partition Distribution : " , X_bal_sets[partitions-1]['Label'].value_counts())
 	# code end....................................................................
 
 
